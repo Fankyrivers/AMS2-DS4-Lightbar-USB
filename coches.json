@@ -1,0 +1,71 @@
+{
+  "Porsche 911 GT3 R": {
+    "verde": 8500,
+    "azul": 8650,
+    "naranja": 8900,
+    "corte": 9400,
+    "parpadeo_ms": 20,
+    "verde_rgb": [120, 255, 0],
+    "azul_rgb": [0, 0, 255],
+    "naranja_rgb": [255, 128, 0]
+  },
+  "Audi R8 LMS GT3": {
+    "verde": 7050,
+    "amarillo": 7550,
+    "rojo": 7950,
+    "corte": 8400,
+    "parpadeo_ms": 40,
+    "verde_rgb": [120, 255, 0],
+    "amarillo_rgb": [255, 255, 0],
+    "rojo_rgb": [255, 0, 0]
+  },
+  "Formula V10 Gen2": {
+    "verde": 0,
+    "rojo": 18000,
+    "corte": 19000,
+    "parpadeo": false,
+    "verde_rgb": [0, 255, 0],
+    "rojo_rgb": [255, 0, 0]
+  },
+  "BMW M6 GT3": {
+    "verde": 5400,
+    "azul": 5850,
+    "naranja": 6430,
+    "corte": 6890,
+    "parpadeo_ms": 50,
+    "verde_rgb": [120, 255, 0],
+    "azul_rgb": [15, 50, 255],
+    "naranja_rgb": [255, 128, 0]
+  },
+  "McLaren 720S GT3": {
+    "verde": 7180,
+    "amarillo": 7500,
+    "naranja": 7680,
+    "corte": 7800,
+    "parpadeo_ms": 20,
+    "verde_rgb": [6, 180, 55],
+    "amarillo_rgb": [140, 160, 0],
+    "naranja_rgb": [255, 180, 0],
+    "corte_rgb": [0, 188, 255]
+  },
+  "Mercedes-AMG GT3": {
+    "verde": 6100,
+    "naranja": 7150,
+    "corte": 7320,
+    "parpadeo_ms": 40,
+    "verde_rgb": [0, 255, 0],
+    "naranja_rgb": [255, 120, 0],
+    "rojo_rgb": [255, 0, 0]
+  },
+  "Nissan GT-R Nismo GT3": {
+    "verde": 6500,
+    "amarillo": 6800,
+    "naranja": 7050,
+    "corte": 7120,
+    "parpadeo_ms": 50,
+    "verde_rgb": [0, 255, 0],
+    "amarillo_rgb": [255, 255, 0],
+    "naranja_rgb": [255, 128, 0],
+    "rojo_rgb": [255, 0, 0]
+  }
+}
