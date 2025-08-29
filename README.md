@@ -39,13 +39,26 @@ Incluye configuraciones listas para todos los GT3 y es totalmente personalizable
 - Librería `pywinusb` (ver instalación abajo)
 - Automobilista 2 con telemetría activada
 - DualShock 4 conectado por **USB**
-Opcional: DS4Windows
-El script funciona de forma independiente, pero es compatible con DS4Windows si lo usas para mapeo o perfiles.
+- Opcional: DS4Windows
+- El script funciona de forma independiente, pero es compatible con DS4Windows si lo usas para mapeo o perfiles.
 - Mantén desactivada la opción “Ocultar DS4 Controller” (Hide DS4 Controller).
 - Desactiva “Habilitar salida de datos al DS4” (Enable output data to DS4) para evitar conflictos con la lightbar.
+- Puedes mantener activa la opcion anterior, no quitara la vibracion pero interfiere ligeramente con el control de la lightbar
 - No es necesario para la conexión por USB, pero no interfiere si está configurado correctamente.
 
 ---
+
+## ⚙️ Configuración en Automobilista 2
+Para que el script funcione correctamente:
+1. Abre Automobilista 2.
+2. Ve a **Opciones → Sistema**.
+3. Activa **Compartir datos de telemetría** (*Shared Memory*).
+4. Selecciona **Project CARS 2**
+5. En Frecuencia de UDP, se recomienda mantener la opcion en **5**.
+6. En la version de protocolo UDP seleccionar **Project CARS 1**.
+7. Guarda los cambios y reinicia el juego si es necesario.
+
+--
 
 ## 📥 Instalación de dependencias
 1. Instala Python desde [python.org](https://www.python.org/downloads/) (marca la casilla **Add to PATH** durante la instalación).
@@ -122,6 +135,7 @@ pause
 - **Desconexión/reconexión:** mueve el cable; la luz debe recuperarse sola.
 
 ---
+
 
 
 ######## Disfruta mucho de este proyecto #######
