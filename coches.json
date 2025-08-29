@@ -1,71 +1,147 @@
-{
-  "Porsche 911 GT3 R": {
-    "verde": 8500,
-    "azul": 8650,
-    "naranja": 8900,
-    "corte": 9400,
-    "parpadeo_ms": 20,
-    "verde_rgb": [120, 255, 0],
-    "azul_rgb": [0, 0, 255],
-    "naranja_rgb": [255, 128, 0]
+[
+  {
+    "car_id": "Porsche 911 GT3 R",
+    "thresholds": {
+      "speed_on": 0,
+      "rpm_steps": [8400, 8650, 8900, 9250]
+    },
+    "colors": {
+      "idle": [0, 0, 0],
+      "green": [120, 255, 0],
+      "blue": [0, 0, 255],
+      "amber": [255, 128, 0],
+      "amber_cut": [255, 128, 0]
+    },
+    "blink": {
+      "idle": 0,
+      "green": 0,
+      "blue": 0,
+      "amber": 0,
+      "amber_cut": 6
+    },
+    "sequence": ["green", "blue", "amber", "amber_cut"]
   },
-  "Audi R8 LMS GT3": {
-    "verde": 7050,
-    "amarillo": 7550,
-    "rojo": 7950,
-    "corte": 8400,
-    "parpadeo_ms": 40,
-    "verde_rgb": [120, 255, 0],
-    "amarillo_rgb": [255, 255, 0],
-    "rojo_rgb": [255, 0, 0]
+  {
+    "car_id": "Audi R8 LMS GT3",
+    "thresholds": {
+      "speed_on": 0,
+      "rpm_steps": [7015, 7460, 7690, 7910, 8400]
+    },
+    "colors": {
+      "idle": [0, 0, 0],
+      "green": [120, 255, 0],
+      "yellow": [255,255, 0],
+      "amber": [255, 128, 0],
+      "red": [255, 0, 0],
+      "red_cut": [255,0,0]
+    },
+    "blink": {
+      "idle": 0,
+      "green": 0,
+      "amber": 0,
+      "red_cut": 8
+    },
+    "sequence": ["green", "yellow", "amber", "red", "red_cut"]
   },
-  "Formula V10 Gen2": {
-    "verde": 0,
-    "rojo": 18000,
-    "corte": 19000,
-    "parpadeo": false,
-    "verde_rgb": [0, 255, 0],
-    "rojo_rgb": [255, 0, 0]
+  {
+    "car_id": "Formula V10 Gen2",
+    "thresholds": {
+      "speed_on": 0,
+      "rpm_steps": [0, 18000, 19000]
+    },
+    "colors": {
+      "idle": [0, 0, 0],
+      "green": [0, 255, 0],
+      "red": [255, 0, 0]
+    },
+    "blink": {
+      "idle": 0,
+      "green": 0,
+      "red_cut": 8
+    },
+    "sequence": ["green", "red", "red_cut"]
   },
-  "BMW M6 GT3": {
-    "verde": 5400,
-    "azul": 5850,
-    "naranja": 6430,
-    "corte": 6890,
-    "parpadeo_ms": 50,
-    "verde_rgb": [120, 255, 0],
-    "azul_rgb": [15, 50, 255],
-    "naranja_rgb": [255, 128, 0]
+  {
+    "car_id": "BMW M6 GT3",
+    "thresholds": {
+      "speed_on": 0,
+      "rpm_steps": [5420, 5850, 6320, 6890]
+    },
+    "colors": {
+      "idle": [0, 0, 0],
+      "green": [120, 255, 0],
+      "blue": [15, 50, 255],
+      "amber": [255, 128, 0],
+      "amber_cut": [255, 128,0]
+    },
+    "blink": {
+      "idle": 0,
+      "green": 0,
+      "blue": 0,
+      "amber_cut": 6
+    },
+    "sequence": ["green", "blue", "amber", "amber_cut"]
   },
-  "McLaren 720S GT3": {
-    "verde": 7180,
-    "amarillo": 7500,
-    "naranja": 7680,
-    "corte": 7800,
-    "parpadeo_ms": 20,
-    "verde_rgb": [6, 180, 55],
-    "amarillo_rgb": [140, 160, 0],
-    "naranja_rgb": [255, 180, 0],
-    "corte_rgb": [0, 188, 255]
+  {
+    "car_id": "McLaren 720S GT3",
+    "thresholds": {
+      "speed_on": 0,
+      "rpm_steps": [7180, 7500, 7680, 7800]
+    },
+    "colors": {
+      "idle": [0, 0, 0],
+      "green": [6, 180, 55],
+      "yellow":[140, 160, 0],
+      "amber": [255, 180, 0],
+      "blue_cut": [0, 188, 255]
+    },
+    "blink": {
+      "idle": 0,
+      "green": 0,
+      "yellow": 0,
+      "amber": 0,
+      "blue_cut": 9
+    },
+    "sequence": ["green", "yellow", "amber", "blue_cut"]
   },
-  "Mercedes-AMG GT3": {
-    "verde": 6100,
-    "naranja": 7150,
-    "corte": 7320,
-    "parpadeo_ms": 40,
-    "verde_rgb": [0, 255, 0],
-    "naranja_rgb": [255, 120, 0],
-    "rojo_rgb": [255, 0, 0]
+  {
+    "car_id": "Mercedes-AMG GT3",
+    "thresholds": {
+      "speed_on": 0,
+      "rpm_steps": [6100, 7140, 7320]
+    },
+    "colors": {
+      "idle": [0, 0, 0],
+      "green": [0, 255, 0],
+      "amber": [255, 120, 0],
+      "red_cut": [255, 0, 0]
+    },
+    "blink": {
+      "idle": 0,
+      "green": 0,
+      "amber": 0,
+      "red_cut": 6
+    },
+    "sequence": ["green", "amber", "red_cut"]
   },
-  "Nissan GT-R Nismo GT3": {
-    "verde": 6500,
-    "amarillo": 6800,
-    "naranja": 7050,
-    "corte": 7120,
-    "parpadeo_ms": 50,
-    "verde_rgb": [0, 255, 0],
-    "amarillo_rgb": [255, 255, 0],
-    "naranja_rgb": [255, 128, 0],
-    "rojo_rgb": [255, 0, 0]
+  {
+    "car_id": "Nissan GT-R Nismo GT3",
+    "thresholds": {
+      "speed_on": 0,
+      "rpm_steps": [6500, 6800, 7120]
+    },
+    "colors": {
+      "idle": [0, 0, 0],
+      "green": [0, 255, 0],
+      "yellow": [255, 255, 0],
+      "red_cut": [255, 0, 0]
+    },
+    "blink": {
+      "idle": 0,
+      "green": 0,
+      "amber": 0,
+      "red_cut": 6
+    },
+    "sequence": ["green", "yellow", "red_cut"]
   }
-}
+]

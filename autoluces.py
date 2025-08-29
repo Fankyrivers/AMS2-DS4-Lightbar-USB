@@ -19,7 +19,6 @@ def get_ds4_device():
     devices = hid.HidDeviceFilter(vendor_id=0x054C).get_devices()
     for dev in devices:
         try:
-            # Filtrar solo el mando físico
             if "Wireless Controller" not in dev.product_name:
                 continue
             dev.open()
@@ -34,7 +33,7 @@ def get_ds4_device():
 
 def set_lightbar(r, g, b):
     global ds4, color_actual
-    color_actual = (r, g, b)  # siempre actualizamos
+    color_actual = (r, g, b)
     try:
         if ds4 is None or not ds4.is_plugged():
             ds4 = get_ds4_device()
@@ -52,53 +51,76 @@ def set_lightbar(r, g, b):
             ds4.close()
             ds4 = None
 
+# Cargar configuración
 try:
-    with open(JSON_FILE, "r") as f:
-        coches_db = json.load(f)
+    with open(JSON_FILE, "r", encoding="utf-8") as f:
+        coches_db = {c["car_id"]: c for c in json.load(f)}
+    print(f"📄 Configuración cargada desde {JSON_FILE}")
 except FileNotFoundError:
     print(f"❌ No se encontró {JSON_FILE}")
     coches_db = {}
 
-def logica_multicolor(nombre, rpm, cfg):
+def _blink_or_solid(color_tuple, hz):
+    """Envía color sólido o parpadeo según hz."""
     global toggle, ultimo_toggle
-    cfg = dict(cfg)
-    cfg.setdefault("verde", 0)
-    cfg.setdefault("amarillo", cfg.get("rojo", cfg.get("naranja", cfg.get("corte", 99999))))
-    cfg.setdefault("rojo", cfg.get("naranja", cfg.get("corte", 99999)))
-    cfg.setdefault("parpadeo_ms", 100)
-
-    # Corte con parpadeo usando corte_rgb si existe
-    if rpm >= cfg["corte"]:
-        intervalo = cfg.get("parpadeo_ms", 100) / 1000.0
-        if time.time() - ultimo_toggle >= intervalo:
+    if hz and hz > 0:
+        intervalo = 1.0 / hz / 2.0
+        now = time.time()
+        if now - ultimo_toggle >= intervalo:
             toggle = not toggle
-            ultimo_toggle = time.time()
-        set_lightbar(*(cfg.get("corte_rgb", cfg.get("rojo_rgb", [255, 0, 0])) if toggle else (0, 0, 0)))
+            ultimo_toggle = now
+        set_lightbar(*(color_tuple if toggle else (0, 0, 0)))
+    else:
+        set_lightbar(*color_tuple)
+
+def logica_unificada(nombre, rpm, speed, pit, cfg):
+    thr = cfg["thresholds"]
+    cols = cfg["colors"]
+    blink_cfg = cfg.get("blink", {})
+    seq = cfg.get("sequence", [])
+    steps = thr.get("rpm_steps", [])
+
+    # Pit limiter (prioridad máxima)
+    if pit:
+        color = cols.get("blue", (0, 0, 255))
+        _blink_or_solid(color, blink_cfg.get("blue", 0))
         return
 
-    # Colores intermedios
-    if "naranja" in cfg and rpm >= cfg["naranja"]:
-        set_lightbar(*cfg.get("naranja_rgb", [255, 128, 0]))
-        return
-    if "azul" in cfg and rpm >= cfg["azul"]:
-        set_lightbar(*cfg.get("azul_rgb", [0, 0, 255]))
-        return
-    if "amarillo" in cfg and rpm >= cfg["amarillo"]:
-        set_lightbar(*cfg.get("amarillo_rgb", [255, 255, 0]))
-        return
-    if rpm >= cfg["verde"]:
-        set_lightbar(*cfg.get("verde_rgb", [0, 255, 0]))
+    # Si no hay secuencia o pasos, idle
+    if not steps or not seq:
+        _blink_or_solid(cols.get("idle", (0, 0, 0)), blink_cfg.get("idle", 0))
         return
 
-    set_lightbar(0, 0, 0)
+    # Determinar fase actual
+    fase = -1
+    for i, step in enumerate(steps):
+        if rpm >= step:
+            fase = i
+        else:
+            break
 
-print("🏎 Shift‑light GT3 multicolor (filtro y reconexión activa) listo…")
+    if fase == -1:
+        # Antes de la primera fase
+        _blink_or_solid(cols.get("idle", (0, 0, 0)), blink_cfg.get("idle", 0))
+        return
 
-sampler = AMS2Sampler(freq=10)
+    # Si fase >= len(seq), usar última (corte)
+    if fase >= len(seq):
+        fase = len(seq) - 1
+
+    color_key = seq[fase]
+    color = cols.get(color_key, (255, 0, 0))
+    hz = blink_cfg.get(color_key, 0)
+    _blink_or_solid(color, hz)
+
+print("🏎 Shift‑light multicolor v2.0 (JSON dinámico, reconexión activa) listo…")
+
+sampler = AMS2Sampler(freq=20)  # 20 Hz reenvío constante
 sampler.start()
 
 try:
     coche_cfg = None
+    coche_actual_id = None
     while True:
         timestamp, raw_data = sampler.samples.get()
 
@@ -106,16 +128,23 @@ try:
         coche_raw = coche_raw.split(b"\x00", 1)[0].decode('utf-8', errors='ignore').strip()
 
         rpm = struct.unpack_from("<f", raw_data, OFFSET_RPM)[0]
+        speed = 0.0  # Si luego agregas velocidad real, cámbiala aquí
+        pit = False  # Si agregas flag de pit-limiter, cámbialo aquí
 
         if coche_raw in coches_db:
-            if coche_cfg is None or coche_raw != coche_cfg.get("nombre"):
-                coche_cfg = {"nombre": coche_raw, **coches_db[coche_raw]}
-                print(f"🚗 Detectado: {coche_raw} → {coches_db[coche_raw]}")
-            logica_multicolor(coche_raw, rpm, coche_cfg)
+            if coche_actual_id != coche_raw:
+                coche_cfg = coches_db[coche_raw]
+                coche_actual_id = coche_raw
+                print(f"🚗 Detectado: {coche_raw}")
+                print(f"   thresholds: {coche_cfg.get('thresholds', {})}")
+                print(f"   sequence: {coche_cfg.get('sequence', [])}")
+                print(f"   blink: {coche_cfg.get('blink', {})}")
+            logica_unificada(coche_raw, rpm, speed, pit, coche_cfg)
         else:
             if coche_raw:
                 print(f"⚠️ {coche_raw} no está en {JSON_FILE}")
             coche_cfg = None
+            coche_actual_id = None
 
 except KeyboardInterrupt:
     print("\n🛑 Detenido por usuario.")
