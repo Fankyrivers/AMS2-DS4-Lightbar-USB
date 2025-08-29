@@ -75,6 +75,8 @@ Cada coche se define como un objeto con:
   - **yellow**: Color para RPM medias (preaviso).
   - **red_cut**: Color para RPM altas (corte).
 - **sequence**: Lista de claves de color que se aplican en orden según `rpm_steps`.
+- Los colores son completamente personalizables, al igual que `rpm_steps`.
+- Puedes poner tantas fases y colores como desees, configura tu experiencia a tu gusto.
 
 ### Ejemplo: Audi R8 LMS GT3
 
@@ -149,6 +151,7 @@ pause
 - **Desconexión/reconexión:** mueve el cable; la luz debe recuperarse sola.
 
 ---
+
 
 
 ######## Disfruta mucho de este proyecto #######
