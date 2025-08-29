@@ -75,7 +75,7 @@ Para que el script funcione correctamente:
 - Colores RGB (verde_rgb, amarillo_rgb, etc.)
 - Velocidad de parpadeo (parpadeo_ms)
 Ejemplo:
-
+```json
 "McLaren 720S GT3": {
     "verde": 7180,
     "amarillo": 7500,
@@ -87,7 +87,7 @@ Ejemplo:
     "naranja_rgb": [255, 180, 120],
     "corte_rgb": [0, 0, 255]
 }
-
+```
 
 📌 Notas y futuro del proyecto
 - Diseñado para conexión USB para máxima estabilidad.
@@ -139,3 +139,4 @@ pause
 
 
 ######## Disfruta mucho de este proyecto #######
+
