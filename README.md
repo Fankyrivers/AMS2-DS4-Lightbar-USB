@@ -47,6 +47,19 @@ El script funciona de forma independiente, pero es compatible con DS4Windows si 
 
 ---
 
+## 📌 Requisito adicional: sim-to-motec
+
+Este proyecto utiliza **[sim-to-motec](https://github.com/GeekyDeaks/sim-to-motec)** como fuente de telemetría para sincronizar la lógica de la lightbar con datos en tiempo real del simulador.
+
+**¿Por qué es necesario?**  
+El script no lee la telemetría directamente del simulador. En su lugar, se apoya en _sim-to-motec_ para recibir datos como RPM, velocidad, luces, etc., que luego se usan para controlar la secuencia de colores.
+
+🔗 **Descarga sim-to-motec** desde su repositorio oficial en GitHub:  
+[https://github.com/GeekyDeaks/sim-to-motec](https://github.com/GeekyDeaks/sim-to-motec)
+
+> **Nota:** Se recomienda usar la última versión disponible en la sección de *Releases* del repositorio.  
+> Si no tienes _sim-to-motec_ instalado y configurado, el script no podrá sincronizar la lightbar con la telemetría.
+
 ## 📥 Instalación de dependencias
 1. Instala Python desde [python.org](https://www.python.org/downloads/) (marca la casilla **Add to PATH** durante la instalación).
 2. Abre la consola de comandos (CMD):
@@ -56,6 +69,7 @@ El script funciona de forma independiente, pero es compatible con DS4Windows si 
    pip install pywinusb
 
 ---
+
 ## Formato de configuración (`cars.json`)
 
 Cada coche se define como un objeto con:
@@ -155,3 +169,4 @@ pause
 
 
 ######## Disfruta mucho de este proyecto #######
+
